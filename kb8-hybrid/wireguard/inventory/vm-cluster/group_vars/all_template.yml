@@ -1,0 +1,19 @@
+default_port: "51820"
+allowed_ips: "10.8.0.0/24"
+keep_alive: "PersistentKeepalive = 5"
+server_vpn_ip: "10.8.0.1"
+node_ip: "10.8.0.{{ ansible_play_batch.index(inventory_hostname) + 2}}"
+
+external_users:
+
+  - {
+      name: "windows_from_work",
+      public_key: "ssadfasfasfas=",
+      ip: "10.8.0.50"
+    }
+  - {
+      name: "my_mobile",
+      public_key: "adfasfasfasf=",
+      ip: "10.8.0.51"
+    }
+

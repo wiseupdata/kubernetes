@@ -1,0 +1,7 @@
+- name: Generate Wireguard Clients config
+  become: true
+  template:
+    src: "wg0-user.j2"
+    dest: "{{ wg_conf_dir.path }}/wg0.conf"
+    mode: 0640
+  notify: restart wg0

@@ -1,0 +1,9 @@
+- name: start wireguard and enable on boot
+  become: true
+  systemd:
+    name: wg-quick@wg0
+    enabled: yes
+    state: started
+  notify: 
+    - restart wg0
+    - reset iptables

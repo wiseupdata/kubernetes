@@ -1,0 +1,57 @@
+- name: Check if K3s uninstall scripts exist
+  stat:
+    path: "{{ item }}"
+  register: uninstall_scripts
+  with_items:
+    - "/usr/local/bin/k3s-uninstall.sh"
+    - "/usr/local/bin/k3s-agent-uninstall.sh"
+  become: true
+
+- name: Uninstall K3s scripts if installed
+  command: "{{ item.item }}"
+  loop: "{{ uninstall_scripts.results }}"
+  when: item.stat.exists
+  become: true
+
+- name: Cleaning the root paths
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/systemd/system/k3s-agent"
+    - "/usr/lib/systemd/system/k3s-agent"
+    - "/var/lib/rancher/k3s/"
+    - "/etc/rancher/"
+    - "/var/lib/cni"
+  become: true
+
+- name: Cleaning the user paths
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "~/.local/bin/k3s"
+    - "~/.kube"
+
+- name: Remove k3s if installed
+  ansible.builtin.command: >
+    bash -c "if [ -n \"\$(which k3s)\" ]; then sudo rm -Rf \"\$(which k3s)\"; fi"
+  changed_when: false
+
+- name: Get Kubectl Contexts
+  command: "kubectl config get-contexts -o name"
+  register: kubectl_contexts
+  changed_when: false
+
+- name: Delete Kubectl Config if Context Exists
+  command: "kubectl config delete-context {{ item }}; kubectl config delete-cluster {{ item }}; kubectl config delete-user {{ item }}"
+  loop: "{{ kubectl_contexts.stdout_lines }}"
+
+- name: Reload Systemd
+  systemd:
+    daemon_reload: yes
+  become: true
+
+
+
+

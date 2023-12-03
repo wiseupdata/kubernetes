@@ -1,0 +1,11 @@
+[Interface]
+PostUp = wg set %i private-key {{ wg_conf_dir.path }}/privatekey
+Address = {{node_ip}}/24
+ListenPort = {{default_port}}
+PostUp = ping -c1 {{server_vpn_ip}}
+
+[Peer]
+PublicKey = {{ hostvars['vpn_master']['wg_public_key']['content'] | b64decode | replace('\n', '')}}
+AllowedIPs = {{allowed_ips}}
+Endpoint = {{hostvars['vpn_master']['ansible_host']}}:{{default_port}}
+{{keep_alive}}

@@ -1,0 +1,24 @@
+---
+- hosts: cluster
+  tasks:
+    - import_role:
+        name: install
+    - set_fact:
+        wg_public_key: "{{ wg_public_key }}"
+
+- name: Setup Master
+  hosts: master
+  roles:
+    - role: master
+
+- name: Node Setup
+  hosts: node
+  roles:
+    - role: node
+
+- name: Start VPN
+  hosts: cluster
+  roles:
+    - role: start
+
+

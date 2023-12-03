@@ -1,0 +1,21 @@
+- name: Installing WireGuard
+  ansible.builtin.apt:
+    name: wireguard
+    state: present
+  register: installation
+  until: installation is succeeded
+  retries: 3
+  delay: 5
+  become: true
+
+- name: Getting WireGuard version
+  ansible.builtin.command:
+    cmd: wg --version
+  register: wg_version
+  changed_when: false
+  ignore_errors: no
+
+- name: WireGuard version
+  ansible.builtin.debug:
+    msg: "WireGuard version: {{ wg_version.stdout }}"
+  when: wg_version.rc == 0  

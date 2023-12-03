@@ -1,0 +1,5 @@
+export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..11111111111111111111111111111"
+export TF_VAR_user_ocid="ocid1.user.oc1..aaaaaaaa11111111111111111111111111111111111111111111111"
+export TF_VAR_fingerprint="1:1:1:1:1:1:1:1:1:1:1:1:1:1:"
+export TF_VAR_region="eu-frankfurt-1"
+export TF_VAR_private_key_path="/home/mymachine/.oci/oci_api_key.pem"

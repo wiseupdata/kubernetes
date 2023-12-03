@@ -1,0 +1,8 @@
+- name: Generate Wireguard server config
+  become: true
+  template:
+    src: "wg0-server.j2"
+    dest: "{{ wg_conf_dir.path }}/wg0.conf"
+    mode: 0640
+    backup: yes
+  notify: restart wg0

@@ -1,0 +1,6 @@
+---
+- hosts: cluster
+  tasks:
+    - import_role:
+        name: destroy
+

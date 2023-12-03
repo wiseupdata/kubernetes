@@ -1,0 +1,10 @@
+- name: Update system task
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: full
+    autoclean: yes
+    autoremove: yes
+
+
+

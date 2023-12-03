@@ -1,0 +1,20 @@
+[Interface]
+PostUp = wg set %i private-key {{ wg_conf_dir.path }}/privatekey
+Address = {{server_vpn_ip}}/24
+ListenPort = {{default_port}}
+
+{% for host in groups['node'] %}
+[Peer]
+# {{host}}
+PublicKey = {{ hostvars[host]['wg_public_key']['content'] | b64decode | replace('\n', '')}}
+AllowedIPs = 10.8.0.{{loop.index + 1  }}
+
+{% endfor %}
+
+{% for user in external_users %}
+[Peer]
+# {{user.name}}
+PublicKey = {{user.public_key}}
+AllowedIPs = {{user.ip}}
+
+{% endfor %}

@@ -1,0 +1,23 @@
+- name: Creating wireguard config dir
+  file:
+    path: "/etc/wireguard"
+    state: directory
+  register: wg_conf_dir
+  become: true
+
+- name: Checking WireGuard private key
+  ansible.builtin.stat:
+    path: "{{ wg_conf_dir.path }}/privatekey"
+  register: wg_private_key
+  become: true
+
+- name: Generating wireguard private and public keys [skip if exits]
+  become: true
+  shell: |
+      umask 077 && wg genkey | tee {{ wg_conf_dir.path }}/privatekey | wg pubkey > {{ wg_conf_dir.path }}/publickey
+  when: not wg_private_key.stat.exists
+
+- name: Checking keys status
+  debug:
+    msg: "keys exit!"
+  when: wg_private_key.stat.exists

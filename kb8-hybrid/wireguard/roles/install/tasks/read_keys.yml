@@ -1,0 +1,7 @@
+- name: Get wireguard public key
+  become: true
+  slurp:
+    src: "{{ wg_conf_dir.path }}/publickey"
+  register: wg_public_key
+- set_fact:
+      wg_public_key: "{{ wg_public_key }}"

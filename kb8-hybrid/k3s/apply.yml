@@ -1,0 +1,15 @@
+---
+- hosts: cluster
+  tasks:
+    - import_role:
+        name: install
+
+- hosts: master
+  tasks:
+    - import_role:
+        name: master
+
+- hosts: node
+  tasks:
+    - import_role:
+        name: node

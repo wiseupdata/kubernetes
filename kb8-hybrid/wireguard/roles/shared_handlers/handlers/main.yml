@@ -1,0 +1,20 @@
+- name: start wg0
+  become: true
+  systemd:
+    name: "wg-quick@wg0"
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  notify: reset iptables
+
+- name: restart wg0
+  become: true
+  systemd:
+    name: "wg-quick@wg0"
+    state: restarted
+    daemon_reload: yes
+  notify: reset iptables
+
+- name: reset iptables
+  become: true
+  command: iptables -F
