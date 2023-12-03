@@ -1,7 +1,10 @@
 .PHONY: install uninstall destroy plan ping
 
 install:
-	$(MAKE) -C ./vms install 
+	$(MAKE) -C ./vms install
+	@echo "Waiting 1 minutes for the VM to start..."
+	@sleep 60
+	@echo "VM should be up now." 
 	$(MAKE) -C ./wireguard install 
 
 # Terraform plan

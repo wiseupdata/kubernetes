@@ -1,5 +1,6 @@
 ---
 - hosts: cluster
+  gather_facts: no
   tasks:
     - import_role:
         name: install

@@ -14,6 +14,14 @@
     backrefs: yes
   become: true
 
+- name: Enable IP forwarding
+  become: true
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    state: present
+    reload: yes
+
 - name: Creating wireguard config dir
   file:
     path: "/etc/wireguard"
