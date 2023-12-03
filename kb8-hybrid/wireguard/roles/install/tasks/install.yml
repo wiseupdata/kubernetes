@@ -13,7 +13,7 @@
     cmd: wg --version
   register: wg_version
   changed_when: false
-  ignore_errors: no
+  ignore_errors: false
 
 - name: WireGuard version
   ansible.builtin.debug:
