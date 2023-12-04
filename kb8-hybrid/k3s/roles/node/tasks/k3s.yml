@@ -33,17 +33,22 @@
     content: "{{ hostvars['k3s_master'].k3s_master_conf_std.content | b64decode}}"
     dest: ~/.kube/config
    
+- name: Update server address in kubeconfig
+  ansible.builtin.replace:
+    path: ~/.kube/config
+    regexp: 'https://127.0.0.1:6443'
+    replace: 'https://10.8.0.1:6443'
+    backup: yes
 
-# - name: Check k3s version and cluster info
-#   shell: |
-#     k3s --version
-#     k3s kubectl cluster-info
-#     k3s kubectl get nodes
-#     k3s kubectl get endpoints -A
-#   register: k3s_info
-#   changed_when: false
-#   become: true
+- name: Check k3s version and cluster info
+  shell: |
+    k3s --version
+    k3s kubectl cluster-info
+    k3s kubectl get nodes
+    k3s kubectl get endpoints -A
+  register: k3s_info
+  changed_when: false
 
-# - name: Display k3s information
-#   debug:
-#     var: k3s_info.stdout_lines
+- name: Display k3s information
+  debug:
+    var: k3s_info.stdout_lines

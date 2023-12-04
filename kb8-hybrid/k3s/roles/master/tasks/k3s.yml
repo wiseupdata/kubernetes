@@ -37,7 +37,7 @@
 
 - name: Get K3s Master cluster conf
   slurp:
-    src: /home/ubuntu/kubeconfig
+    src: /etc/rancher/k3s/k3s.yaml
   register: k3s_master_conf_std
   changed_when: false
   become: true
