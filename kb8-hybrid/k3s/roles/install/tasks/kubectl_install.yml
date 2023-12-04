@@ -1,44 +1,55 @@
-
-- name: Install essentials packages
-  apt:
-    name:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-    state: present
-    update_cache: yes
-  become: true
-
-- name: Ensure /etc/apt/keyrings directory exists
+- name: Create /etc/apt/keyrings directory if it does not exist
   ansible.builtin.file:
     path: /etc/apt/keyrings
     state: directory
     mode: '0755'
   become: true
 
-- name: Add Kubernetes signing key
-  ansible.builtin.shell: |
-    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  args:
-    creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  register: add_key
-  failed_when: add_key.rc != 0 and "Failed writing body" not in add_key.stderr
-
-- name: Add Kubernetes APT repository
-  ansible.builtin.lineinfile:
-    path: /etc/apt/sources.list.d/kubernetes.list
-    line: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /'
-    create: yes
+- name: Download Kubernetes signing key
+  ansible.builtin.get_url:
+    url: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
+    dest: /tmp/kubernetes-archive-keyring.gpg
+    force: yes
   become: true
 
-- name: Update apt cache after adding Kubernetes repository
-  apt:
-    update_cache: yes
-  changed_when: false
+- name: Add Kubernetes signing key
+  ansible.builtin.copy:
+    src: /tmp/kubernetes-archive-keyring.gpg
+    dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    force: yes
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
 
-- name: Install kubectl
-  apt:
-    name: kubectl
+- name: Add Kubernetes repository
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    line: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /"
+    create: yes
     state: present
   become: true
 
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+    force_apt_get: yes
+  become: true
+
+- name: Install kubectl
+  ansible.builtin.apt:
+    name: kubectl
+    state: present
+    force_apt_get: yes
+  become: true
+
+- name: Check kubectl version
+  ansible.builtin.command:
+    cmd: kubectl version --client --output=yaml
+  register: kubectl_version
+  changed_when: false
+  become: true
+
+- name: Show kubectl version
+  ansible.builtin.debug:
+    msg: "{{ kubectl_version.stdout }}"

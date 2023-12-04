@@ -1,8 +1,8 @@
----
-- hosts: cluster
-  tasks:
-    - import_role:
-        name: install
+# ---
+# - hosts: cluster
+#   tasks:
+#     - import_role:
+#         name: install
 
 - hosts: master
   tasks:

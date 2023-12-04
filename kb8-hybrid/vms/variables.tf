@@ -11,3 +11,9 @@ variable "env" {
 }
 
 variable "tenancy_ocid" {}
+
+variable "availability_domain" {
+  description = "ad1, ad2 or ad3"
+  type        = string
+  default     = "ad2"
+}
