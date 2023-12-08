@@ -11,11 +11,14 @@ install:
 	@sleep 60
 	@echo "VM should be up now." 
 	$(MAKE) -C ./k3s install
+	@echo "Setup Kb8" 
+	$(MAKE) -C ./kb8-setup install
 
 update:
 	$(MAKE) -C ./vms install
 	$(MAKE) -C ./wireguard install
 	$(MAKE) -C ./k3s install
+	$(MAKE) -C ./kb8-setup install
 
 # Terraform plan
 plan:

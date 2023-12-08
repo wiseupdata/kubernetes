@@ -1,0 +1,6 @@
+- name: Taint master node to prevent pod scheduling
+  command: >
+    k3s kubectl patch node master-oci -p "{\"spec\":{\"unschedulable\":true}}"
+  register: taint_result
+  failed_when: taint_result.rc != 0 
+  changed_when: "'no change' not in taint_result.stdout"
