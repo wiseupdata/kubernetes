@@ -43,6 +43,7 @@
   command: "kubectl config get-contexts -o name"
   register: kubectl_contexts
   changed_when: false
+  ignore_errors: true
 
 - name: Delete Kubectl Config if Context Exists
   command: "kubectl config delete-context {{ item }}; kubectl config delete-cluster {{ item }}; kubectl config delete-user {{ item }}"

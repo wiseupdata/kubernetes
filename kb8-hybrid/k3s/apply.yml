@@ -5,11 +5,13 @@
 #         name: install
 
 - hosts: master
+  gather_facts: no
   tasks:
     - import_role:
         name: master
 
 - hosts: node
+  gather_facts: no
   tasks:
     - import_role:
         name: node
