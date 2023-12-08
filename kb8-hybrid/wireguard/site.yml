@@ -22,4 +22,9 @@
   roles:
     - role: start
 
+- hosts: cluster
+  gather_facts: no
+  tasks:
+    - name: Ping
+      ping:  # This calls the ping module
 

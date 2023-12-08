@@ -14,3 +14,5 @@ install: run
 destroy:
 	@echo "\n[WIREGUARD] - Destroying the ansbile playbook \n" 
 	@ansible-playbook destroy.yml -i inventory/vm-cluster/hosts.yml
+
+unistall: destroy
