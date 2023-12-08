@@ -43,3 +43,4 @@ kb8-hybrid/vms/set_tfvars.sh
 kb8-hybrid/vms/set_tfvars
 kb8-hybrid/set_tfvars.sh
 kb8-hybrid/vms/.terraform.lock.hcl
+.vscode/
