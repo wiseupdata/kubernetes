@@ -39,6 +39,19 @@ cd $HOME/public/kubernetes/kb8-hybrid && clear
 
 <br>
 
+## Result
+
+- 2 VMS Oracle
+  - 1 master
+  - 1 node
+
+- 1 VM
+  - Local
+
+> You can adapt the project to have more machines.
+
+<img align="left" alt="img" src="https://raw.githubusercontent.com/wiseupdata/kubernetes/main/assets/imgs/kb8-result.png" width="100" />
+
 # References🤘
 
 1. [Wise Up Data - Github](https://github.com/wiseupdata)
@@ -54,3 +67,7 @@ cd $HOME/public/kubernetes/kb8-hybrid && clear
 #### Maintainer 🤗 👨‍💻
 
 Sivio Liborio
+
+- 💬 silllvio@hotmail.com
+- 📧 silvio.liborio@wiseupdata.com
+- 🌍 https://www.linkedin.com/in/silvio-de-melo-liborio/
