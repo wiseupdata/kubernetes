@@ -34,6 +34,10 @@ cd $HOME/public/kubernetes/kb8-hybrid && clear
 - Ansible 2.15.6
 - Terraform 1.6.5
 - OCI credentials [Oracle Cloud]
+- .env variables to run it automatically
+  > Take a look ant the .evn_templat
+
+<br>
 
 # References🤘
 

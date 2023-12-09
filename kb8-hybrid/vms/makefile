@@ -18,7 +18,7 @@ apply:
 
 # Terraform deploy
 destroy:
-	@echo "[TERRAFORM] - Destroying"
+	@echo "[TERRAFORM] - Destroying $$TF_VAR_region"
 	@terraform destroy --auto-approve
 
 install: apply
