@@ -50,7 +50,12 @@ cd $HOME/public/kubernetes/kb8-hybrid && clear
 
 > You can adapt the project to have more machines.
 
-<img align="left" alt="img" src="https://raw.githubusercontent.com/wiseupdata/kubernetes/main/assets/imgs/kb8-result.png" width="100" />
+<br>
+
+<img align="center" alt="img" src="https://raw.githubusercontent.com/wiseupdata/kubernetes/main/assets/imgs/kb8-result.png" width="800" />
+
+<br>
+<br>
 
 # References🤘
 
