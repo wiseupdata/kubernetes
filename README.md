@@ -105,6 +105,14 @@ kubectl api-resources --verbs=list -o name \
 kubectl delete ns namespace-test
 ```
 
+### Test Internet connection
+
+```
+kubectl run -i --tty dns-test --image=busybox --restart=Never -- sh
+nslookup github.com
+ping github.com
+```
+
 
 # References🤘
 
