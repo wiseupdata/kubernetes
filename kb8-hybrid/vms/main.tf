@@ -1,6 +1,6 @@
 module "vm_cluster_free_tier" {
   source              = "wiseupdata/vm_cluster_free_tier/oci"
-  version             = "0.0.1"
+  version             = "0.0.2"
   tenancy_ocid        = var.tenancy_ocid
   app_name            = var.company_name
   env                 = var.env

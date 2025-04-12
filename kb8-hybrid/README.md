@@ -36,6 +36,18 @@ cd $HOME/public/kubernetes/kb8-hybrid && clear
 - OCI credentials [Oracle Cloud]
 - .env variables to run it automatically
   > Take a look ant the .evn_templat
+- In wireguard you need th hosts.yml, there's a template to be used.
+  > Public key must be real
+
+## Create new tag for the node | Set Node affinity
+> Important to force services in specifics nodes
+```bash
+kubectl label nodes my_node node-type=cloud
+kubectl label nodes my_node2 node-type=on-premise
+```
+
+
+
 
 <br>
 
