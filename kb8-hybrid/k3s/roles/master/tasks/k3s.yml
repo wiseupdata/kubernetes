@@ -4,7 +4,7 @@
 
 - name: Download and install k3s
   shell: |
-    curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.28.3+k3s2" K3S_KUBECONFIG_MODE=644 INSTALL_K3S_EXEC="server --node-ip  {{ k3s_master_ip }}  --node-external-ip  {{ k3s_master_ip }} --flannel-iface wg0" sh -
+    curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.32.3+k3s1" K3S_KUBECONFIG_MODE=644 INSTALL_K3S_EXEC="server --node-ip  {{ k3s_master_ip }}  --node-external-ip  {{ k3s_master_ip }} --flannel-iface wg0" sh -
   args:
     executable: /bin/bash
   register: install_k3s

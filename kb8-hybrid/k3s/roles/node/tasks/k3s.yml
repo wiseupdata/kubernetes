@@ -16,7 +16,7 @@
 
 - name: Download and install k3s
   shell: |
-    curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.28.3+k3s2" K3S_KUBECONFIG_MODE=644 INSTALL_K3S_EXEC="agent --server https://{{ k3s_master_ip }}:6443 --token {{ k3s_master_token }} --node-ip {{ k3s_node_ip }} --node-external-ip {{ k3s_node_ip }} --flannel-iface wg0"  sh -
+    curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.32.3+k3s1" K3S_KUBECONFIG_MODE=644 INSTALL_K3S_EXEC="agent --server https://{{ k3s_master_ip }}:6443 --token {{ k3s_master_token }} --node-ip {{ k3s_node_ip }} --node-external-ip {{ k3s_node_ip }} --flannel-iface wg0"  sh -
   args:
     executable: /bin/bash
   register: install_k3s
@@ -38,6 +38,13 @@
     path: ~/.kube/config
     regexp: 'https://127.0.0.1:6443'
     replace: 'https://10.8.0.1:6443'
+    backup: yes
+
+- name: Update internet in kubeconfig
+  ansible.builtin.replace:
+    path: ~/.kube/config
+    regexp: 'forward . /etc/resolv.conf'
+    replace: 'forward . 8.8.8.8 1.1.1.1'
     backup: yes
 
 - name: Check k3s version and cluster info
